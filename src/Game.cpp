@@ -1,6 +1,6 @@
 #include "Game.hpp"
 #include "Bird.hpp"
-Game::Game(){
+Game::Game() : bird(100,500,100,100){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     window.create(sf::VideoMode(1024,1024), "Flappy", sf::Style::Titlebar | sf::Style::Close, settings);
@@ -36,6 +36,6 @@ void Game::update(){
 }
 void Game::render(){
     window.clear(); 
-
+    bird.draw(window);
     window.display(); 
 }
