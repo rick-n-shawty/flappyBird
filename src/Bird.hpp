@@ -15,7 +15,7 @@ class Bird{
         }
     private:
         sf::RectangleShape body; 
-}
+};
 
 
 #endif 

@@ -1,5 +1,5 @@
 #include "Game.hpp"
-
+#include "Bird.hpp"
 Game::Game(){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
