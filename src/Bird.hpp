@@ -40,8 +40,9 @@ class Bird{
         }
         void rotate(){
             float currentRotation = this->body.getRotation();
-            if(currentRotation + velocity_y <= 85 || currentRotation + velocity_y >= 280){
-                this->body.rotate(velocity_y);
+            float dTheta = velocity_y / 2;
+            if(currentRotation + dTheta <= 85 || currentRotation + dTheta >= 280){
+                this->body.rotate(dTheta);
             }
         }
     private:

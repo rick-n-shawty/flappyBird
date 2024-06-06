@@ -4,7 +4,7 @@
 using std::cout;
 
 
-Game::Game() : bird(200,300,30){
+Game::Game() : bird(200,300,30) : floor(1280,100){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
@@ -19,8 +19,9 @@ Game::~Game() {
 
 void Game::run(){
     while(window.isOpen()){
+        float dt = clock.restart().asSeconds(); 
         handleEvents(); 
-        update(); 
+        update(dt); 
         render();
     }
 }
@@ -33,7 +34,7 @@ void Game::handleEvents(){
         }
         if(event.type == sf::Event::KeyPressed){
             switch (event.key.code){
-                case sf::Keyboard::Space:  // hand jumping of the bird 
+                case sf::Keyboard::Space:  // handle jumping of the bird 
                     bird.velocity_y = bird.jumpStrength;
                     bird.rotate();
                     bird.fallingTime = 0;
@@ -45,9 +46,7 @@ void Game::handleEvents(){
     }
 
 }
-void Game::update(){
-    frameTime = clock.restart();
-    float dt = frameTime.asSeconds();
+void Game::update(float& dt){
     bird.fallingTime += dt;
     bird.velocity_y += GRAVITY * bird.fallingTime;
     bird.moveBody();

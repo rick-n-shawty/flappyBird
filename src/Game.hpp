@@ -1,6 +1,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Bird.hpp"
+#include "Floor.hpp"
 
 #ifndef GAME_H
 #define GAME_H
@@ -15,11 +16,11 @@ class Game{
 
     private:
         void handleEvents(); 
-        void update(); 
+        void update(float& dt); 
         void render(); 
         sf::RenderWindow window; 
         sf::Clock clock;
-        sf::Time frameTime;
         Bird bird;
+        Floor floor;
 };
 #endif // GAME_H
