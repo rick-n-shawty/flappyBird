@@ -20,7 +20,7 @@ class Bird{
             this->body.setRadius(r); 
             this->body.setOrigin(r, r);
 
-            if(!this->texture.loadFromFile("../assets/images/flappy.png")){
+            if(!this->texture.loadFromFile("../assets/images/birdSketch.png")){
                 throw  std::runtime_error("Failed to load texture");
             };
             this->body.setTexture(&this->texture);
