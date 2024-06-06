@@ -1,5 +1,6 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Floor.hpp"
 #ifndef BIRD_HPP
 #define BIRD_HPP 
 
@@ -44,6 +45,9 @@ class Bird{
             if(currentRotation + dTheta <= 85 || currentRotation + dTheta >= 280){
                 this->body.rotate(dTheta);
             }
+        }
+        bool collide(Floor& floor){
+            return (y + r >= floor.y);
         }
     private:
         sf::CircleShape body;

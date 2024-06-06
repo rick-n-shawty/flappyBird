@@ -4,7 +4,7 @@
 using std::cout;
 
 
-Game::Game() : bird(200,300,30) : floor(1280,100){
+Game::Game() : bird(200,300,30), floor(0, 768-100, 1280, 100){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
@@ -55,5 +55,6 @@ void Game::update(float& dt){
 void Game::render(){
     window.clear(sf::Color(0,102,51)); 
     bird.draw(window);
+    floor.draw(window);
     window.display(); 
 }
