@@ -10,14 +10,21 @@ Game::Game() : bird(200,300,30), floor(0, 768-100, 1280, 100){
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
     isGameOver = false; 
-    currentScore = 0;
+    currentScore = 1010;
     bestScore = 0;
 
-    sf::Font font; 
-    if(!font.loadFromFile("../assets/fonts/PixelifySans-Medium.ttf")){
-        throw std::runtime_error("Failed to load the font");
-    }
 
+
+    // sf::Font font; 
+    // if(!font.loadFromFile("../assets/fonts/PixelifySans-Regular.ttf")){
+    //     cout << "Error \n";
+    //     throw std::runtime_error("Failed to load font");
+    // }
+    // currentScoreText.setFont(font);
+    // currentScoreText.setCharacterSize(30);
+    // currentScoreText.setFillColor(sf::Color::Black);
+    // currentScoreText.setString("Hello world");
+    // currentScoreText.setPosition(100,100);
 
     window.create(sf::VideoMode(WINDOW_WIDTH,WINDOW_HEIGHT), "Flappy", sf::Style::Titlebar | sf::Style::Close, settings);
     window.setFramerateLimit(60);
@@ -30,6 +37,7 @@ Game::~Game() {
 }
 
 void Game::run(){
+  
     while(window.isOpen()){
         float dt = clock.restart().asSeconds(); 
         handleEvents(); 
@@ -66,6 +74,7 @@ void Game::update(float& dt){
 }
 void Game::render(){
     window.clear(sf::Color(0,102,51)); 
+    window.draw(currentScoreText);
     bird.draw(window);
     floor.draw(window);
     window.display(); 

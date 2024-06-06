@@ -19,13 +19,17 @@ class Game{
         void handleEvents(); 
         void update(float& dt); 
         void render();
+        bool loadFonts(){
+            sf::Font font;
+        };
         // 
         sf::RenderWindow window; 
         sf::Clock clock;
+        sf::Text currentScoreText; 
+        sf::Text bestScoreText;
+
         Bird bird;
         Floor floor;
         //
-        sf::Text currentScoreText; 
-        sf::Text bestScoreText;
 };
 #endif // GAME_H
