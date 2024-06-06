@@ -6,24 +6,28 @@
 class Bird{
     public:
         float x,y,velocity_y, velocity_x, fallingTime, jumpStrength; 
-        int w,h;
-        Bird(float x, float y, int w, int h){ 
+        int r; 
+        Bird(float x, float y, int r){ 
             this->x = x;
             this->y = y;
-            this->w = w; 
-            this->h = h; 
             this->velocity_y = 0; 
             this->velocity_x = 0; 
             this->jumpStrength = -5;
+            this->r = r;
+
             this->body.setPosition(sf::Vector2f(x,y));
-            this->body.setSize(sf::Vector2f(w,h)); 
-            this->body.setFillColor(sf::Color::Red);
-            this->body.setOrigin(w / 2, h /2);
+            this->body.setRadius(r); 
+            this->body.setOrigin(r, r);
+
+            if(!this->texture.loadFromFile("../assets/images/flappy.png")){
+                throw  std::runtime_error("Failed to load texture");
+            };
+            this->body.setTexture(&this->texture);
         };
         ~Bird(){
 
         };  
-        sf::RectangleShape getBody(){
+        sf::CircleShape getBody(){
             return this->body; 
         }
         void draw(sf::RenderWindow& window){
@@ -35,10 +39,14 @@ class Bird{
             this->body.move(velocity_x, velocity_y);
         }
         void rotate(){
-            this->body.rotate(25);
+            float currentRotation = this->body.getRotation();
+            if(currentRotation + velocity_y <= 85 || currentRotation + velocity_y >= 280){
+                this->body.rotate(velocity_y);
+            }
         }
     private:
-        sf::RectangleShape body; 
+        sf::CircleShape body;
+        sf::Texture texture;
 };
 
 

@@ -4,13 +4,12 @@
 using std::cout;
 
 
-
-Game::Game() : bird(200,300,100,100){
+Game::Game() : bird(200,300,30){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
 
-    window.create(sf::VideoMode(1128,700), "Flappy", sf::Style::Titlebar | sf::Style::Close, settings);
+    window.create(sf::VideoMode(1280,768), "Flappy", sf::Style::Titlebar | sf::Style::Close, settings);
     window.setFramerateLimit(60);
 }; 
 
@@ -34,8 +33,7 @@ void Game::handleEvents(){
         }
         if(event.type == sf::Event::KeyPressed){
             switch (event.key.code){
-                case sf::Keyboard::Space: 
-                    //jump
+                case sf::Keyboard::Space:  // hand jumping of the bird 
                     bird.velocity_y = bird.jumpStrength;
                     bird.rotate();
                     bird.fallingTime = 0;
@@ -53,9 +51,10 @@ void Game::update(){
     bird.fallingTime += dt;
     bird.velocity_y += GRAVITY * bird.fallingTime;
     bird.moveBody();
+    bird.rotate();
 }
 void Game::render(){
-    window.clear(); 
+    window.clear(sf::Color(0,102,51)); 
     bird.draw(window);
     window.display(); 
 }
