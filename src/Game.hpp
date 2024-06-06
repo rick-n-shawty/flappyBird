@@ -7,20 +7,25 @@
 #define GAME_H
 class Game{
     public: 
-        int WINDOW_WIDTH;
-        int WINDOW_HEIGHT;
-        float GRAVITY;
         Game(); 
         ~Game();
         void run(); 
-
     private:
+        bool isGameOver;
+        int bestScore;
+        int currentScore;
+        float GRAVITY;
+        //
         void handleEvents(); 
         void update(float& dt); 
-        void render(); 
+        void render();
+        // 
         sf::RenderWindow window; 
         sf::Clock clock;
         Bird bird;
         Floor floor;
+        //
+        sf::Text currentScoreText; 
+        sf::Text bestScoreText;
 };
 #endif // GAME_H

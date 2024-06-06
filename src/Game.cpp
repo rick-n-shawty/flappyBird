@@ -2,15 +2,27 @@
 #include "Game.hpp"
 #include "Bird.hpp"
 using std::cout;
-
+const int WINDOW_WIDTH = 1280; 
+const int WINDOW_HEIGHT = 768;
 
 Game::Game() : bird(200,300,30), floor(0, 768-100, 1280, 100){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
+    isGameOver = false; 
+    currentScore = 0;
+    bestScore = 0;
 
-    window.create(sf::VideoMode(1280,768), "Flappy", sf::Style::Titlebar | sf::Style::Close, settings);
+    sf::Font font; 
+    if(!font.loadFromFile("../assets/fonts/PixelifySans-Medium.ttf")){
+        throw std::runtime_error("Failed to load the font");
+    }
+
+
+    window.create(sf::VideoMode(WINDOW_WIDTH,WINDOW_HEIGHT), "Flappy", sf::Style::Titlebar | sf::Style::Close, settings);
     window.setFramerateLimit(60);
+
+
 }; 
 
 Game::~Game() {
