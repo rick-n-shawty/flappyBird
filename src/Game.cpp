@@ -1,9 +1,16 @@
+#include <iostream>
 #include "Game.hpp"
 #include "Bird.hpp"
-Game::Game() : bird(100,500,100,100){
+using std::cout;
+
+
+
+Game::Game() : bird(200,300,100,100){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
-    window.create(sf::VideoMode(1024,1024), "Flappy", sf::Style::Titlebar | sf::Style::Close, settings);
+    GRAVITY = 0.6;
+
+    window.create(sf::VideoMode(1128,700), "Flappy", sf::Style::Titlebar | sf::Style::Close, settings);
     window.setFramerateLimit(60);
 }; 
 
@@ -26,13 +33,26 @@ void Game::handleEvents(){
             window.close(); 
         }
         if(event.type == sf::Event::KeyPressed){
-            std::cout << "Key pressed \n";
+            switch (event.key.code){
+                case sf::Keyboard::Space: 
+                    //jump
+                    bird.velocity_y = bird.jumpStrength;
+                    bird.rotate();
+                    bird.fallingTime = 0;
+                break;
+                default: 
+                break;
+            }
         }
     }
 
 }
 void Game::update(){
-
+    frameTime = clock.restart();
+    float dt = frameTime.asSeconds();
+    bird.fallingTime += dt;
+    bird.velocity_y += GRAVITY * bird.fallingTime;
+    bird.moveBody();
 }
 void Game::render(){
     window.clear(); 
