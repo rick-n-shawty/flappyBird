@@ -21,6 +21,7 @@ class Game{
         void render();
         bool loadFonts(){
             sf::Font font;
+            return false;
         };
         // 
         sf::RenderWindow window; 
