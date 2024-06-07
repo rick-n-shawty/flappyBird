@@ -10,6 +10,13 @@ class Game{
         Game(); 
         ~Game();
         void run(); 
+        void showText(){
+            if(isGameOver){
+
+            }else{
+                window.draw(currentScoreText); 
+            }
+        }
     private:
         bool isGameOver;
         int bestScore;
@@ -26,8 +33,10 @@ class Game{
         // 
         sf::RenderWindow window; 
         sf::Clock clock;
+        sf::Font font;
         sf::Text currentScoreText; 
         sf::Text bestScoreText;
+        sf::FloatRect textBounds;
 
         Bird bird;
         Floor floor;

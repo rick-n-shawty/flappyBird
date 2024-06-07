@@ -10,25 +10,22 @@ Game::Game() : bird(200,300,30), floor(0, 768-100, 1280, 100){
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
     isGameOver = false; 
-    currentScore = 1010;
+    currentScore = 0;
     bestScore = 0;
-
-
-
-    // sf::Font font; 
-    // if(!font.loadFromFile("../assets/fonts/PixelifySans-Regular.ttf")){
-    //     cout << "Error \n";
-    //     throw std::runtime_error("Failed to load font");
-    // }
-    // currentScoreText.setFont(font);
-    // currentScoreText.setCharacterSize(30);
-    // currentScoreText.setFillColor(sf::Color::Black);
-    // currentScoreText.setString("Hello world");
-    // currentScoreText.setPosition(100,100);
 
     window.create(sf::VideoMode(WINDOW_WIDTH,WINDOW_HEIGHT), "Flappy", sf::Style::Titlebar | sf::Style::Close, settings);
     window.setFramerateLimit(60);
 
+    if(!font.loadFromFile("../assets/fonts/PixelifySans-Regular.ttf")){
+        cout << "Failed to load fonts \n"; 
+        exit(1);
+    }
+    currentScoreText.setFont(font);
+    currentScoreText.setCharacterSize(50);
+    currentScoreText.setString(std::to_string(currentScore));
+    textBounds = currentScoreText.getLocalBounds(); 
+    currentScoreText.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
+    currentScoreText.setPosition(WINDOW_WIDTH / 2.0f, 100);
 
 }; 
 
@@ -74,8 +71,10 @@ void Game::update(float& dt){
 }
 void Game::render(){
     window.clear(sf::Color(0,102,51)); 
-    window.draw(currentScoreText);
+
     bird.draw(window);
     floor.draw(window);
+    showText();
+
     window.display(); 
 }
