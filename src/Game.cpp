@@ -6,7 +6,7 @@
 using std::cout;
 
 
-Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), pipe(400,400), bird(200,300,30){
+Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), pipe(400,400), bird(200,0,30){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
@@ -54,10 +54,11 @@ void Game::handleEvents(){
         if(event.type == sf::Event::KeyPressed){
             switch (event.key.code){
                 case sf::Keyboard::Space:  // handle jumping of the bird 
-                    // cout << bird.y << "\n";
-                    bird.velocity_y = bird.jumpStrength;
-                    bird.rotate();
-                    bird.fallingTime = 0;
+                    if(!isGameOver){
+                        bird.velocity_y = bird.jumpStrength;
+                        bird.rotate();
+                        bird.fallingTime = 0;
+                    }
                 break;
                 default: 
                 break;
@@ -68,11 +69,26 @@ void Game::handleEvents(){
 }
 
 void Game::update(float& dt){
-    bird.fallingTime += dt;
-    bird.velocity_y += GRAVITY * bird.fallingTime;
-    bird.moveBody();
-    bird.rotate();
-    cout << bird.y << "\n";
+    if(isGameOver) return;
+
+    if(bird.y + bird.r + (GRAVITY * (bird.fallingTime + dt)) + 10 > WINDOW_HEIGHT - GROUND_HEIGHT){
+        isGameOver = true;
+        return;
+    }
+
+    if(bird.y + bird.r < WINDOW_HEIGHT - GROUND_HEIGHT){
+        bird.fallingTime += dt;
+        bird.velocity_y += GRAVITY * bird.fallingTime;
+        bird.moveBody();
+    }
+
+    
+    bird.rotate(); 
+    if(bird.collide(floor)){
+        isGameOver = true; 
+    }
+
+
 }
 void Game::render(){
     window.clear(sf::Color(0,102,51)); 

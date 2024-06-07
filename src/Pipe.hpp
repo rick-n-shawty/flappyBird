@@ -33,7 +33,7 @@ class Pipe{
         void draw(sf::RenderWindow& window){
             window.draw(upperShape);
             window.draw(bottomShape);
-        }
+        };
     private: 
         sf::RectangleShape upperShape; 
         sf::RectangleShape bottomShape; 
