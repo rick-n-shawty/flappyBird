@@ -6,6 +6,5 @@ g++ -std=c++17 main.cpp Game.cpp -I/opt/homebrew/Cellar/sfml/2.6.1/include -o ga
 
 
 TODO: 
-
-2 - Moving ground with two sprites 
-3 - Think of pipes 
+2 - Think of pipes 
+3 - Moving ground with two sprites 

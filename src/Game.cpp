@@ -1,11 +1,11 @@
 #include <iostream>
 #include "Game.hpp"
 #include "Bird.hpp"
+#include "Globals.hpp"
 using std::cout;
-const int WINDOW_WIDTH = 1280; 
-const int WINDOW_HEIGHT = 768;
 
-Game::Game() : bird(200,300,30), floor(0, 768-100, 1280, 100){
+
+Game::Game() : bird(200,300,30), floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
@@ -20,6 +20,7 @@ Game::Game() : bird(200,300,30), floor(0, 768-100, 1280, 100){
         cout << "Failed to load fonts \n"; 
         exit(1);
     }
+
     currentScoreText.setFont(font);
     currentScoreText.setCharacterSize(50);
     currentScoreText.setString(std::to_string(currentScore));
@@ -63,6 +64,7 @@ void Game::handleEvents(){
     }
 
 }
+
 void Game::update(float& dt){
     bird.fallingTime += dt;
     bird.velocity_y += GRAVITY * bird.fallingTime;
@@ -74,7 +76,7 @@ void Game::render(){
 
     bird.draw(window);
     floor.draw(window);
-    showText();
+    drawText();
 
     window.display(); 
 }

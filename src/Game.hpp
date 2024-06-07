@@ -10,7 +10,7 @@ class Game{
         Game(); 
         ~Game();
         void run(); 
-        void showText(){
+        void drawText(){
             if(isGameOver){
 
             }else{
