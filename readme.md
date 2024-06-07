@@ -6,5 +6,6 @@ g++ -std=c++17 main.cpp Game.cpp -I/opt/homebrew/Cellar/sfml/2.6.1/include -o ga
 
 
 TODO: 
-2 - Think of pipes 
-3 - Moving ground with two sprites 
+1 - Work on pipes  
+2 - Moving ground with two sprites 
+3 - implement proper collision detection: Early Detection for mast moving objects, see if objects intersect in advance

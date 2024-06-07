@@ -1,8 +1,9 @@
 #include <iostream>
+#include <cmath>
 #include <SFML/Graphics.hpp>
 #include "Floor.hpp"
 #include "Pipe.hpp"
-// #include "Globals.hpp"
+#include "Globals.hpp"
 #ifndef BIRD_HPP
 #define BIRD_HPP 
 
@@ -52,6 +53,11 @@ class Bird{
         }
         bool collide(Floor& floor){
             return (y + r >= floor.y);
+        }
+        bool collide(Pipe& pipe){
+            // check for the bottom pipe 
+            // float closestX = pipe.x;
+            return false;
         }
     private:
         sf::CircleShape body;

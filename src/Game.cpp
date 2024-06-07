@@ -6,7 +6,7 @@
 using std::cout;
 
 
-Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), pipe(400,400), bird(200,0,30){
+Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), pipe(400,400), bird(200,300,30){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
@@ -36,7 +36,6 @@ Game::~Game() {
 }
 
 void Game::run(){
-  
     while(window.isOpen()){
         float dt = clock.restart().asSeconds(); 
         handleEvents(); 
@@ -71,19 +70,14 @@ void Game::handleEvents(){
 void Game::update(float& dt){
     if(isGameOver) return;
 
-    if(bird.y + bird.r + (GRAVITY * (bird.fallingTime + dt)) + 10 > WINDOW_HEIGHT - GROUND_HEIGHT){
-        isGameOver = true;
-        return;
-    }
 
-    if(bird.y + bird.r < WINDOW_HEIGHT - GROUND_HEIGHT){
+    if(bird.y + bird.r + 3 < WINDOW_HEIGHT - GROUND_HEIGHT){
         bird.fallingTime += dt;
         bird.velocity_y += GRAVITY * bird.fallingTime;
         bird.moveBody();
+        bird.rotate(); 
     }
-
     
-    bird.rotate(); 
     if(bird.collide(floor)){
         isGameOver = true; 
     }

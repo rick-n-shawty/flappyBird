@@ -6,20 +6,26 @@ class Pipe{
     // keep track of one x-var coz it is the same for both parts of the pipe
     // did not include upperPipeY coz it must always be zero 
     public: 
-        float bottomPipeY, x;
-        int upperHeight, bottomHeight; 
-        Pipe(float x, int bottomHeight){
-            this->bottomHeight = bottomHeight;
+
+        float x, topY, downY;
+        int topHeight, downHeight;
+        Pipe(float x, int downHeight){
             this->x = x; 
-            bottomPipeY = WINDOW_HEIGHT - GROUND_HEIGHT - bottomHeight; 
+            this->topY = topY; 
+            this->downY = downY;
+            this->downHeight = downHeight; 
+
+            topY = 0; 
+            downY = WINDOW_HEIGHT - GROUND_HEIGHT - downHeight; 
 
 
-            bottomShape.setPosition(sf::Vector2f(x, bottomPipeY));
-            bottomShape.setSize(sf::Vector2f(PIPE_WIDTH, bottomHeight));
+            topHeight = WINDOW_HEIGHT - GROUND_HEIGHT - downHeight - PIPE_GAP; 
 
-            this->upperHeight =  WINDOW_HEIGHT - GROUND_HEIGHT - bottomHeight - PIPE_GAP;
-            upperShape.setPosition(sf::Vector2f(x,0)); 
-            upperShape.setSize(sf::Vector2f(PIPE_WIDTH, upperHeight));
+            bottomShape.setPosition(sf::Vector2f(x, downY));
+            bottomShape.setSize(sf::Vector2f(PIPE_WIDTH, downHeight));
+
+            upperShape.setPosition(sf::Vector2f(x,topY)); 
+            upperShape.setSize(sf::Vector2f(PIPE_WIDTH, topHeight));
             
 
             bottomShape.setFillColor(sf::Color::Red);
