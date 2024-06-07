@@ -2,10 +2,11 @@
 #include "Game.hpp"
 #include "Bird.hpp"
 #include "Globals.hpp"
+#include "Pipe.hpp"
 using std::cout;
 
 
-Game::Game() : bird(200,300,30), floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT){
+Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), pipe(400,400), bird(200,300,30){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
@@ -53,6 +54,7 @@ void Game::handleEvents(){
         if(event.type == sf::Event::KeyPressed){
             switch (event.key.code){
                 case sf::Keyboard::Space:  // handle jumping of the bird 
+                    // cout << bird.y << "\n";
                     bird.velocity_y = bird.jumpStrength;
                     bird.rotate();
                     bird.fallingTime = 0;
@@ -70,12 +72,14 @@ void Game::update(float& dt){
     bird.velocity_y += GRAVITY * bird.fallingTime;
     bird.moveBody();
     bird.rotate();
+    cout << bird.y << "\n";
 }
 void Game::render(){
     window.clear(sf::Color(0,102,51)); 
 
     bird.draw(window);
     floor.draw(window);
+    pipe.draw(window);
     drawText();
 
     window.display(); 

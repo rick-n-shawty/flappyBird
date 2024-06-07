@@ -1,7 +1,9 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "Globals.hpp"
 #include "Bird.hpp"
 #include "Floor.hpp"
+#include "Pipe.hpp"
 
 #ifndef GAME_H
 #define GAME_H
@@ -38,6 +40,7 @@ class Game{
         sf::Text bestScoreText;
         sf::FloatRect textBounds;
 
+        Pipe pipe;
         Bird bird;
         Floor floor;
         //

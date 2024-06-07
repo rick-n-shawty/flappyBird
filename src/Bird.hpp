@@ -1,6 +1,8 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Floor.hpp"
+#include "Pipe.hpp"
+// #include "Globals.hpp"
 #ifndef BIRD_HPP
 #define BIRD_HPP 
 
