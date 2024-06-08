@@ -22,12 +22,10 @@ class Bird{
             this->body.setRadius(r); 
             this->body.setOrigin(r, r);
 
-            if(!this->texture.loadFromFile("../assets/images/birdSketch.png")){
+            if(!this->texture.loadFromFile("../assets/images/originalFlappy.png")){
                 throw  std::runtime_error("Failed to load texture");
             };
             this->body.setTexture(&this->texture);
-            // this->body.setOutlineThickness(1); 
-            // this->body.setOutlineColor(sf::Color::White);
         };
         ~Bird(){
 

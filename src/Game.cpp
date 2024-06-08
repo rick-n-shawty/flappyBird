@@ -6,7 +6,7 @@
 using std::cout;
 
 
-Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), bird(200,300,30){
+Game::Game() : floor(), bird(200,300,30){
 
     for(int i = 0; i < PIPE_NUMBER; i++){
         pipes[i] = Pipe(400 + (i * 400), randomInt(70,WINDOW_HEIGHT - GROUND_HEIGHT - PIPE_GAP - 50));   
@@ -112,10 +112,12 @@ void Game::update(float& dt){
         pipe.move();
     }
 
+    floor.move();
+
     isGameOver = isCollisionOccurred();
 }
 void Game::render(){
-    window.clear(sf::Color(0,102,51)); 
+    window.clear(sf::Color(255,249,240)); 
 
     bird.draw(window);
     floor.draw(window);
