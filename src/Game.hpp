@@ -28,10 +28,6 @@ class Game{
         void handleEvents(); 
         void update(float& dt); 
         void render();
-        bool loadFonts(){
-            sf::Font font;
-            return false;
-        };
         // 
         sf::RenderWindow window; 
         sf::Clock clock;

@@ -77,10 +77,17 @@ void Game::update(float& dt){
         bird.moveBody();
         bird.rotate(); 
     }
-    
-    if(bird.collide(floor)){
+    pipe.velocity_x += -0.01; 
+    pipe.moveBody();
+
+
+    if(bird.collide(pipe)){
+        cout << "Pipe collision!!! \n"; 
         isGameOver = true; 
     }
+    // if(bird.collide(floor)){
+    //     isGameOver = true; 
+    // }
 
 
 }

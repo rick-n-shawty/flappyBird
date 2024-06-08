@@ -3,7 +3,6 @@
 #include <SFML/Graphics.hpp>
 #include "Floor.hpp"
 #include "Pipe.hpp"
-#include "Globals.hpp"
 #ifndef BIRD_HPP
 #define BIRD_HPP 
 
@@ -27,8 +26,8 @@ class Bird{
                 throw  std::runtime_error("Failed to load texture");
             };
             this->body.setTexture(&this->texture);
-            this->body.setOutlineThickness(1); 
-            this->body.setOutlineColor(sf::Color::White);
+            // this->body.setOutlineThickness(1); 
+            // this->body.setOutlineColor(sf::Color::White);
         };
         ~Bird(){
 
@@ -55,8 +54,15 @@ class Bird{
             return (y + r >= floor.y);
         }
         bool collide(Pipe& pipe){
-            // check for the bottom pipe 
-            // float closestX = pipe.x;
+            // upper pipe collisions 
+            float closestX = getClosestPoint(x,pipe.x, pipe.x + PIPE_WIDTH);
+            float closestY = getClosestPoint(y,pipe.topY, pipe.topY + pipe.topHeight); 
+            float dist = pow(x-closestX,2) + pow(y-closestY,2);
+            if(dist < r * r) return true; 
+            // check bottom pipe
+            closestY = getClosestPoint(y, pipe.downY, pipe.downY + pipe.downHeight); 
+            dist = pow(x-closestX,2) + pow(y-closestY,2);
+            if(dist < r * r) return true;
             return false;
         }
     private:

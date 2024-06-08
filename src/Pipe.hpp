@@ -7,12 +7,10 @@ class Pipe{
     // did not include upperPipeY coz it must always be zero 
     public: 
 
-        float x, topY, downY;
+        float x, topY, downY, velocity_x;
         int topHeight, downHeight;
         Pipe(float x, int downHeight){
             this->x = x; 
-            this->topY = topY; 
-            this->downY = downY;
             this->downHeight = downHeight; 
 
             topY = 0; 
@@ -40,6 +38,12 @@ class Pipe{
             window.draw(upperShape);
             window.draw(bottomShape);
         };
+
+        void moveBody(){
+            this->x += velocity_x; 
+            this->upperShape.move(velocity_x, 0);
+            this->bottomShape.move(velocity_x, 0);
+        }
     private: 
         sf::RectangleShape upperShape; 
         sf::RectangleShape bottomShape; 
