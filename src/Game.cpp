@@ -75,14 +75,10 @@ void Game::handleEvents(){
             window.close(); 
         }
         if(event.type == sf::Event::KeyPressed){
-            // if(isGameOver){
-            //     // restart the game
-            //     restart();
-            // }
             switch (event.key.code){
                 case sf::Keyboard::Space:  // handle jumping of the bird 
                     if(!isGameOver){
-                        bird.velocity_y = bird.jumpStrength;
+                        bird.velocity_y = bird.y - bird.r > 0 ? bird.jumpStrength : 0;
                         bird.rotate();
                         bird.fallingTime = 0;
                     }else{
@@ -101,7 +97,7 @@ void Game::update(float& dt){
     if(isGameOver) return;
 
 
-    if(bird.y + bird.r + 3 < WINDOW_HEIGHT - GROUND_HEIGHT){
+    if(bird.y + bird.r < WINDOW_HEIGHT - GROUND_HEIGHT){
         bird.fallingTime += dt;
         bird.velocity_y += GRAVITY * bird.fallingTime;
         bird.moveBody();
