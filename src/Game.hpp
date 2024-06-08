@@ -19,6 +19,11 @@ class Game{
                 window.draw(currentScoreText); 
             }
         }
+        void drawPipes(){
+            for(auto& pipe : pipes){
+                pipe.draw(window);
+            }
+        }
     private:
         bool isGameOver;
         int bestScore;
@@ -37,8 +42,7 @@ class Game{
         sf::Text currentScoreText; 
         sf::Text bestScoreText;
         sf::FloatRect textBounds;
-
-        Pipe pipe;
+        Pipe pipes[PIPE_NUMBER];
         Bird bird;
         Floor floor;
         //

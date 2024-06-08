@@ -6,7 +6,11 @@
 using std::cout;
 
 
-Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), bird(200,300,30), pipe(400,200){
+Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), bird(200,300,30){
+    pipes[0] = Pipe(1000,200);
+    pipes[1] = Pipe(1300,600);
+    pipes[2] = Pipe(1600,300);
+
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
@@ -36,7 +40,7 @@ Game::~Game() {
 }
 
 bool Game::isCollisionOccurred(){
-    if(bird.collide(floor) || bird.collide(pipe)){
+    if(bird.collide(floor)){
         isGameOver = true;
         return true;
     }
@@ -84,8 +88,10 @@ void Game::update(float& dt){
         bird.moveBody();
         bird.rotate(); 
     }
-    pipe.move();
 
+    for(int i = 0; i < 3; i++){
+        pipes[i].move();
+    }
     isCollisionOccurred();
 }
 void Game::render(){
@@ -93,8 +99,8 @@ void Game::render(){
 
     bird.draw(window);
     floor.draw(window);
-    pipe.draw(window);
     drawText();
+    drawPipes();
 
     window.display(); 
 }

@@ -2,6 +2,8 @@
 #include "Pipe.hpp"
 #include <iostream> 
 
+
+
 Pipe::Pipe(float x, int downHeight) : x(x), downHeight(downHeight){
 
     this->velocity_x = -1;

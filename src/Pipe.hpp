@@ -9,30 +9,16 @@ class Pipe{
 
         float x, topY, downY, velocity_x;
         int topHeight, downHeight;
-        Pipe(float x, int downHeight);
-            // this->velocity_x = -1;
-            // this->x = x; 
-            // this->downHeight = downHeight; 
-
-            // topY = 0; 
-            // downY = WINDOW_HEIGHT - GROUND_HEIGHT - downHeight; 
-
-
-            // topHeight = WINDOW_HEIGHT - GROUND_HEIGHT - downHeight - PIPE_GAP; 
-
-            // bottomShape.setPosition(sf::Vector2f(x, downY));
-            // bottomShape.setSize(sf::Vector2f(PIPE_WIDTH, downHeight));
-
-            // upperShape.setPosition(sf::Vector2f(x,topY)); 
-            // upperShape.setSize(sf::Vector2f(PIPE_WIDTH, topHeight));
-            
-
-            // bottomShape.setFillColor(sf::Color::Red);
-            // upperShape.setFillColor(sf::Color::Red);
-
-        
+        Pipe(float x=WINDOW_WIDTH, int downHeight=100);        
         ~Pipe(); 
-
+        void updateShapes(){
+            topHeight = WINDOW_HEIGHT - GROUND_HEIGHT - downHeight - PIPE_GAP; 
+            downY = WINDOW_HEIGHT - GROUND_HEIGHT - downHeight;
+            this->bottomShape.setPosition(sf::Vector2f(x,downY));
+            this->bottomShape.setSize(sf::Vector2f(PIPE_WIDTH, downHeight));
+            this->upperShape.setPosition(sf::Vector2f(x,topY));
+            this->upperShape.setSize(sf::Vector2f(PIPE_WIDTH, topHeight));
+        }
         void draw(sf::RenderWindow& window){
             window.draw(upperShape);
             window.draw(bottomShape);
@@ -41,6 +27,11 @@ class Pipe{
             this->upperShape.move(velocity_x,0);
             this->bottomShape.move(velocity_x, 0);
             this->x += velocity_x; 
+            if(x + PIPE_WIDTH < -10){ // move pipe to the beginning
+                x = WINDOW_WIDTH; 
+                downHeight = randomInt(70,600);
+                updateShapes();
+            }
         }
     private: 
         sf::RectangleShape upperShape; 
