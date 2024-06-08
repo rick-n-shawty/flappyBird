@@ -19,9 +19,20 @@ class Game{
                 bestScoreText.setString(s);
                 bestScoreText.setCharacterSize(40);
                 textBounds = bestScoreText.getLocalBounds(); 
-                bestScoreText.setOrigin((textBounds.left + textBounds.width) / 2.0f, textBounds.top + textBounds.height / 2.0f);
+                bestScoreText.setOrigin((textBounds.left + textBounds.width) / 2.0f, (textBounds.top + textBounds.height) / 2.0f);
                 bestScoreText.setPosition(sf::Vector2f(WINDOW_WIDTH / 2, 300));
+                bestScoreText.setFillColor(sf::Color::Red);
+
+                s = "Press any key to play again";
+                gameOverText.setString(s); 
+                gameOverText.setCharacterSize(40);
+                textBounds = gameOverText.getLocalBounds(); 
+                gameOverText.setOrigin((textBounds.left + textBounds.width) / 2.0f, (textBounds.top + textBounds.height) / 2.0f);
+                gameOverText.setPosition(sf::Vector2f(WINDOW_WIDTH / 2, 400));
+                gameOverText.setFillColor(sf::Color::Red);
+
                 window.draw(bestScoreText);
+                window.draw(gameOverText);
             }else{
                 window.draw(currentScoreText); 
             }
@@ -57,6 +68,7 @@ class Game{
         sf::Font font;
         sf::Text currentScoreText; 
         sf::Text bestScoreText;
+        sf::Text gameOverText;
         sf::FloatRect textBounds;
         Pipe pipes[PIPE_NUMBER];
         Bird bird;

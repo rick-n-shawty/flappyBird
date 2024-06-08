@@ -28,6 +28,7 @@ Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT
     }
 
     bestScoreText.setFont(font);
+    gameOverText.setFont(font);
     currentScoreText.setFont(font);
     currentScoreText.setCharacterSize(50);
     currentScoreText.setString(std::to_string(currentScore));
@@ -78,7 +79,7 @@ void Game::handleEvents(){
             switch (event.key.code){
                 case sf::Keyboard::Space:  // handle jumping of the bird 
                     if(!isGameOver){
-                        bird.velocity_y = bird.y - bird.r > 0 ? bird.jumpStrength : 0;
+                        bird.velocity_y = bird.y - bird.r > 0 ? bird.jumpStrength : 0; // prevents from going above pipes
                         bird.rotate();
                         bird.fallingTime = 0;
                     }else{

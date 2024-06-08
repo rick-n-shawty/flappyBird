@@ -20,8 +20,8 @@ Pipe::Pipe(float x, int downHeight) : x(x), downHeight(downHeight){
     upperShape.setSize(sf::Vector2f(PIPE_WIDTH, topHeight));
     
 
-    bottomShape.setFillColor(sf::Color::Red);
-    upperShape.setFillColor(sf::Color::Red);
+    bottomShape.setFillColor(sf::Color(115, 147, 179));
+    upperShape.setFillColor(sf::Color(115, 147, 179));
 
 }
 Pipe::~Pipe(){
