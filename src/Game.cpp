@@ -6,7 +6,7 @@
 using std::cout;
 
 
-Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), pipe(400,400), bird(200,300,30){
+Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), bird(200,300,30), pipe(400,200){
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
     GRAVITY = 0.6;
@@ -35,6 +35,13 @@ Game::~Game() {
     // Any necessary cleanup
 }
 
+bool Game::isCollisionOccurred(){
+    if(bird.collide(floor) || bird.collide(pipe)){
+        isGameOver = true;
+        return true;
+    }
+    return false;
+}
 void Game::run(){
     while(window.isOpen()){
         float dt = clock.restart().asSeconds(); 
@@ -77,19 +84,9 @@ void Game::update(float& dt){
         bird.moveBody();
         bird.rotate(); 
     }
-    pipe.velocity_x += -0.01; 
-    pipe.moveBody();
+    pipe.move();
 
-
-    if(bird.collide(pipe)){
-        cout << "Pipe collision!!! \n"; 
-        isGameOver = true; 
-    }
-    // if(bird.collide(floor)){
-    //     isGameOver = true; 
-    // }
-
-
+    isCollisionOccurred();
 }
 void Game::render(){
     window.clear(sf::Color(0,102,51)); 

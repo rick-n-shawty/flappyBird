@@ -29,6 +29,8 @@ class Game{
         void update(float& dt); 
         void render();
         // 
+
+        bool isCollisionOccurred();
         sf::RenderWindow window; 
         sf::Clock clock;
         sf::Font font;
