@@ -5,7 +5,8 @@
 
 class Floor{
     public: 
-        float x1,x2,y, velocity_x;
+        float y;
+        int x1,x2, velocity_x;
         int w,h; 
         Floor(){
             x1 = 0;
@@ -30,7 +31,7 @@ class Floor{
             shape2.setTexture(&texture);
             shape2.setTextureRect(sf::IntRect(x2,y, WINDOW_WIDTH, GROUND_HEIGHT));
 
-            velocity_x = -1;
+            velocity_x = -5;
         }
         ~Floor(){
 
@@ -42,9 +43,20 @@ class Floor{
         void move(){
             x1 += velocity_x; 
             x2 += velocity_x;
+            std::cout << "X1: " << x1 << "\n";
+            std::cout << "X2: " << x2 << "\n";
 
             shape1.move(velocity_x,0);
             shape2.move(velocity_x,0);
+
+            if(x1 + WINDOW_WIDTH < 0){
+                x1 = WINDOW_WIDTH; 
+                shape1.setPosition(sf::Vector2f(x1,y));
+            }
+            if(x2 + WINDOW_WIDTH < 0){
+                x2 = WINDOW_WIDTH;
+                shape2.setPosition(sf::Vector2f(x2,y));
+            }
         }
     private:
         sf::Texture texture; 

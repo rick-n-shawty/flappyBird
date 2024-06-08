@@ -4,4 +4,5 @@ g++ -std=c++17 main.cpp Game.cpp -I/opt/homebrew/Cellar/sfml/2.6.1/include -o ga
 
 
 TODO: 
-2 - Moving ground with two sprites 
+Floor is moving but there is a small gap.
+Try to resolve it using update() func that accepts (dt)

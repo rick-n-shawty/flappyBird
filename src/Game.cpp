@@ -114,7 +114,7 @@ void Game::update(float& dt){
 
     floor.move();
 
-    isGameOver = isCollisionOccurred();
+    // isGameOver = isCollisionOccurred();
 }
 void Game::render(){
     window.clear(sf::Color(255,249,240)); 
