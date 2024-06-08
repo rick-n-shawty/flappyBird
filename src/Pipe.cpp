@@ -5,7 +5,7 @@
 
 
 Pipe::Pipe(float x, int downHeight) : x(x), downHeight(downHeight){
-
+    isPassed = false; 
     this->velocity_x = -1;
     topY = 0; 
     downY = WINDOW_HEIGHT - GROUND_HEIGHT - downHeight; 

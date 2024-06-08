@@ -3,10 +3,8 @@
 #ifndef PIPE_HPP 
 #define PIPE_HPP 
 class Pipe{
-    // keep track of one x-var coz it is the same for both parts of the pipe
-    // did not include upperPipeY coz it must always be zero 
     public: 
-
+        bool isPassed;
         float x, topY, downY, velocity_x;
         int topHeight, downHeight;
         Pipe(float x=WINDOW_WIDTH, int downHeight=100);        
@@ -27,9 +25,11 @@ class Pipe{
             this->upperShape.move(velocity_x,0);
             this->bottomShape.move(velocity_x, 0);
             this->x += velocity_x; 
-            if(x + PIPE_WIDTH < -10){ // move pipe to the beginning
-                x = WINDOW_WIDTH; 
-                downHeight = randomInt(70,600);
+            
+            if(x + PIPE_WIDTH < 0){ // move pipe to the beginning
+                x = WINDOW_WIDTH;
+                isPassed = false;  
+                downHeight = randomInt(70, WINDOW_HEIGHT - GROUND_HEIGHT - PIPE_GAP - 50);
                 updateShapes();
             }
         }

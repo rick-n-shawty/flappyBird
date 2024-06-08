@@ -7,9 +7,10 @@ using std::cout;
 
 
 Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT), bird(200,300,30){
-    pipes[0] = Pipe(1000,200);
-    pipes[1] = Pipe(1300,600);
-    pipes[2] = Pipe(1600,300);
+
+    for(int i = 0; i < PIPE_NUMBER; i++){
+        pipes[i] = Pipe(400 + (i * 400), randomInt(70,WINDOW_HEIGHT - GROUND_HEIGHT - PIPE_GAP - 50));   
+    }
 
     sf::ContextSettings settings; 
     settings.antialiasingLevel = 10; 
@@ -88,10 +89,14 @@ void Game::update(float& dt){
         bird.moveBody();
         bird.rotate(); 
     }
-
-    for(int i = 0; i < 3; i++){
-        pipes[i].move();
+    for(auto& pipe : pipes){
+        if(pipe.x < bird.x && !pipe.isPassed){
+            incrementScore();
+            pipe.isPassed = true;
+        }
+        pipe.move();
     }
+
     isCollisionOccurred();
 }
 void Game::render(){
@@ -99,8 +104,8 @@ void Game::render(){
 
     bird.draw(window);
     floor.draw(window);
-    drawText();
     drawPipes();
+    drawText();
 
     window.display(); 
 }

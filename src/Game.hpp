@@ -24,6 +24,13 @@ class Game{
                 pipe.draw(window);
             }
         }
+        void incrementScore(){
+            currentScore++; 
+            currentScoreText.setString( std::to_string(currentScore));
+            if(currentScore > bestScore){
+                bestScore = currentScore;
+            }
+        }
     private:
         bool isGameOver;
         int bestScore;
