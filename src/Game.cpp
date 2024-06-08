@@ -27,6 +27,7 @@ Game::Game() : floor(0, WINDOW_HEIGHT-GROUND_HEIGHT, WINDOW_WIDTH, GROUND_HEIGHT
         exit(1);
     }
 
+    bestScoreText.setFont(font);
     currentScoreText.setFont(font);
     currentScoreText.setCharacterSize(50);
     currentScoreText.setString(std::to_string(currentScore));
@@ -40,10 +41,21 @@ Game::~Game() {
     // Any necessary cleanup
 }
 
+void Game::restart(){
+    for(int i = 0; i < PIPE_NUMBER; i++){
+        pipes[i] = Pipe(400 + (i * 400), randomInt(70,WINDOW_HEIGHT - GROUND_HEIGHT - PIPE_GAP - 50));   
+    }
+
+    currentScore = 0; 
+    currentScoreText.setString("0"); 
+    isGameOver = false; 
+    bird.reset(200,300);
+}
+
 bool Game::isCollisionOccurred(){
-    if(bird.collide(floor)){
-        isGameOver = true;
-        return true;
+    if(bird.collide(floor)) return true;
+    for(auto& pipe : pipes){
+        if(bird.collide(pipe)) return true; 
     }
     return false;
 }
@@ -63,12 +75,18 @@ void Game::handleEvents(){
             window.close(); 
         }
         if(event.type == sf::Event::KeyPressed){
+            // if(isGameOver){
+            //     // restart the game
+            //     restart();
+            // }
             switch (event.key.code){
                 case sf::Keyboard::Space:  // handle jumping of the bird 
                     if(!isGameOver){
                         bird.velocity_y = bird.jumpStrength;
                         bird.rotate();
                         bird.fallingTime = 0;
+                    }else{
+                        restart();
                     }
                 break;
                 default: 
@@ -97,7 +115,7 @@ void Game::update(float& dt){
         pipe.move();
     }
 
-    isCollisionOccurred();
+    isGameOver = isCollisionOccurred();
 }
 void Game::render(){
     window.clear(sf::Color(0,102,51)); 

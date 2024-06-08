@@ -65,6 +65,20 @@ class Bird{
             if(dist < r * r) return true;
             return false;
         }
+        void setXY(float x, float y){
+            this->x = x; 
+            this->y = y; 
+            this->body.setPosition(sf::Vector2f(x,y));
+        }
+        void reset(float x, float y){
+            this->x = x;
+            this->y = y; 
+            velocity_y = 0; 
+            velocity_x = 0; 
+            fallingTime = 0; 
+            this->body.setRotation(0);
+            this->body.setPosition(sf::Vector2f(x,y));
+        }
     private:
         sf::CircleShape body;
         sf::Texture texture;

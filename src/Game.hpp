@@ -14,7 +14,14 @@ class Game{
         void run(); 
         void drawText(){
             if(isGameOver){
-
+                std::string s = "Best score: "; 
+                s.append(std::to_string(bestScore));
+                bestScoreText.setString(s);
+                bestScoreText.setCharacterSize(40);
+                textBounds = bestScoreText.getLocalBounds(); 
+                bestScoreText.setOrigin((textBounds.left + textBounds.width) / 2.0f, textBounds.top + textBounds.height / 2.0f);
+                bestScoreText.setPosition(sf::Vector2f(WINDOW_WIDTH / 2, 300));
+                window.draw(bestScoreText);
             }else{
                 window.draw(currentScoreText); 
             }
@@ -40,9 +47,11 @@ class Game{
         void handleEvents(); 
         void update(float& dt); 
         void render();
+        void restart();
         // 
 
         bool isCollisionOccurred();
+
         sf::RenderWindow window; 
         sf::Clock clock;
         sf::Font font;
