@@ -22,7 +22,7 @@ Game::Game() : floor(-1), bird(200,300,30){
     window.create(sf::VideoMode(WINDOW_WIDTH,WINDOW_HEIGHT), "Flappy", sf::Style::Titlebar | sf::Style::Close, settings);
     window.setFramerateLimit(60);
 
-    if(!font.loadFromFile("../assets/fonts/PixelifySans-Regular.ttf")){
+    if(!font.loadFromFile("../assets/fonts/PixelifySans-Medium.ttf")){
         cout << "Failed to load fonts \n"; 
         exit(1);
     }
@@ -30,11 +30,12 @@ Game::Game() : floor(-1), bird(200,300,30){
     bestScoreText.setFont(font);
     gameOverText.setFont(font);
     currentScoreText.setFont(font);
-    currentScoreText.setCharacterSize(50);
+    currentScoreText.setCharacterSize(70);
     currentScoreText.setString(std::to_string(currentScore));
     textBounds = currentScoreText.getLocalBounds(); 
     currentScoreText.setOrigin(textBounds.left + textBounds.width / 2.0f, textBounds.top + textBounds.height / 2.0f);
     currentScoreText.setPosition(WINDOW_WIDTH / 2.0f, 100);
+    currentScoreText.setFillColor(sf::Color::Black);
 
 }; 
 
@@ -82,7 +83,10 @@ void Game::handleEvents(){
                         bird.velocity_y = bird.y - bird.r > 0 ? bird.jumpStrength : 0; // prevents from going above pipes
                         bird.rotate();
                         bird.fallingTime = 0;
-                    }else{
+                    }
+                break;
+                case sf::Keyboard::W: 
+                    if(isGameOver){
                         restart();
                     }
                 break;

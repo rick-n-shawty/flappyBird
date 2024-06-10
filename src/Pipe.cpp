@@ -22,13 +22,6 @@ Pipe::Pipe(float x, int downHeight) : x(x), downHeight(downHeight){
 
     bottomShape.setFillColor(sf::Color(115, 147, 179));
     upperShape.setFillColor(sf::Color(115, 147, 179));
-
-    if(!texture.loadFromFile("../assets/images/pipeUp.png")){
-        std::cout << "Failed to load texture \n"; 
-    }
-    texture.setRepeated(true);
-    upperShape.setTexture(&texture); 
-    upperShape.setTextureRect(sf::IntRect(x,topY, PIPE_WIDTH, topHeight));
 }
 Pipe::~Pipe(){
 
