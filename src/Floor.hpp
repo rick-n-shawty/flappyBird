@@ -7,7 +7,7 @@ class Floor{
     public: 
         float y, x1, x2, velocity_x;
         int w,h; 
-        Floor(){
+        Floor(float velX){
             x1 = 0;
             x2 = WINDOW_WIDTH; 
             w = WINDOW_WIDTH; 
@@ -25,15 +25,13 @@ class Floor{
             }
 
             texture.setRepeated(true); 
-            shape1.setFillColor(sf::Color::Green); 
-            shape2.setFillColor(sf::Color::Blue);
-            // shape1.setTexture(&texture);
-            // shape1.setTextureRect(sf::IntRect(x1,y, WINDOW_WIDTH, GROUND_HEIGHT));
+            shape1.setTexture(&texture);
+            shape1.setTextureRect(sf::IntRect(x1,y, WINDOW_WIDTH, GROUND_HEIGHT));
 
-            // shape2.setTexture(&texture);
-            // shape2.setTextureRect(sf::IntRect(x2,y, WINDOW_WIDTH, GROUND_HEIGHT));
+            shape2.setTexture(&texture);
+            shape2.setTextureRect(sf::IntRect(x2,y, WINDOW_WIDTH, GROUND_HEIGHT));
 
-            velocity_x = -5;
+            velocity_x = velX;
         }
         ~Floor(){
 

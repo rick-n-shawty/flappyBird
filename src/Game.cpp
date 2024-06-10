@@ -6,10 +6,10 @@
 using std::cout;
 
 
-Game::Game() : floor(), bird(200,300,30){
-
+Game::Game() : floor(-1), bird(200,300,30){
     for(int i = 0; i < PIPE_NUMBER; i++){
         pipes[i] = Pipe(400 + (i * 400), randomInt(70,WINDOW_HEIGHT - GROUND_HEIGHT - PIPE_GAP - 50));   
+        pipes[i].velocity_x = -1;  
     }
 
     sf::ContextSettings settings; 
@@ -114,7 +114,7 @@ void Game::update(float& dt){
 
     floor.move();
 
-    // isGameOver = isCollisionOccurred();
+    isGameOver = isCollisionOccurred();
 }
 void Game::render(){
     window.clear(sf::Color(255,249,240)); 

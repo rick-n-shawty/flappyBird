@@ -33,8 +33,14 @@ class Pipe{
                 updateShapes();
             }
         }
+        // void setTexture(sf::Texture& texture){
+        //     texture.setRepeated(true);
+        //     upperShape.setTexture(&texture);
+        //     upperShape.setTextureRect(sf::IntRect(x,topY, PIPE_WIDTH, topHeight)); 
+        // }
     private: 
         sf::RectangleShape upperShape; 
         sf::RectangleShape bottomShape; 
+        sf::Texture texture;
 };
 #endif
