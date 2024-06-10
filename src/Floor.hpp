@@ -5,8 +5,7 @@
 
 class Floor{
     public: 
-        float y;
-        int x1,x2, velocity_x;
+        float y, x1, x2, velocity_x;
         int w,h; 
         Floor(){
             x1 = 0;
@@ -24,12 +23,15 @@ class Floor{
             if(!texture.loadFromFile("../assets/images/grassBlock.png")){
                 std::cout << "Grass block error \n";
             }
-            texture.setRepeated(true); 
-            shape1.setTexture(&texture);
-            shape1.setTextureRect(sf::IntRect(x1,y, WINDOW_WIDTH, GROUND_HEIGHT));
 
-            shape2.setTexture(&texture);
-            shape2.setTextureRect(sf::IntRect(x2,y, WINDOW_WIDTH, GROUND_HEIGHT));
+            texture.setRepeated(true); 
+            shape1.setFillColor(sf::Color::Green); 
+            shape2.setFillColor(sf::Color::Blue);
+            // shape1.setTexture(&texture);
+            // shape1.setTextureRect(sf::IntRect(x1,y, WINDOW_WIDTH, GROUND_HEIGHT));
+
+            // shape2.setTexture(&texture);
+            // shape2.setTextureRect(sf::IntRect(x2,y, WINDOW_WIDTH, GROUND_HEIGHT));
 
             velocity_x = -5;
         }
@@ -41,22 +43,18 @@ class Floor{
             window.draw(shape2); 
         }
         void move(){
-            x1 += velocity_x; 
-            x2 += velocity_x;
-            std::cout << "X1: " << x1 << "\n";
-            std::cout << "X2: " << x2 << "\n";
-
-            shape1.move(velocity_x,0);
-            shape2.move(velocity_x,0);
-
-            if(x1 + WINDOW_WIDTH < 0){
+            if(x1 + WINDOW_WIDTH + velocity_x < 0){
                 x1 = WINDOW_WIDTH; 
                 shape1.setPosition(sf::Vector2f(x1,y));
-            }
-            if(x2 + WINDOW_WIDTH < 0){
+            }else if(x2 + WINDOW_WIDTH + velocity_x < 0){
                 x2 = WINDOW_WIDTH;
                 shape2.setPosition(sf::Vector2f(x2,y));
             }
+            x1 += velocity_x; 
+            x2 += velocity_x;
+
+            shape1.move(velocity_x,0);
+            shape2.move(velocity_x,0);
         }
     private:
         sf::Texture texture; 
